@@ -1,4 +1,4 @@
-<h1>A text editor GUI for Mario Party games</h1>
+<h1>Mario Party Text Editor - A text editor GUI for Mario Party games</h1>
 (currently only for Mario Party 4)
 
 <h2>Implemented functionalities:</h2>
