@@ -17,6 +17,7 @@ public class MpTextEditApp extends Application {
 
 	private ConfigurableApplicationContext springContext;
 	private BatchEditScreen batchEditScreen;
+	private EditCharNamesScreen editCharNamesScreen;
 
 	public static void main(String[] args) {
 		launch(MpTextEditApp.class, args);
@@ -26,6 +27,7 @@ public class MpTextEditApp extends Application {
 	public void init() {
 		springContext = SpringApplication.run(MpTextEditApp.class);
 		batchEditScreen = new BatchEditScreen();
+		editCharNamesScreen = new EditCharNamesScreen();
 	}
 
 	@Override
@@ -33,10 +35,9 @@ public class MpTextEditApp extends Application {
 		VBox root = new VBox();
 		Button batchEditButton = new Button("Batch edit DAT file");
 		batchEditButton.setOnAction(event -> batchEditScreen.show(primaryStage));
-		Button placeholderButton1 = new Button("Edit character names");
-		Button placeholderButton2 = new Button("Edit minigame names");
-
-		root.getChildren().addAll(batchEditButton, placeholderButton1, placeholderButton2);
+		Button editCharNamesButton = new Button("Edit character names");
+		editCharNamesButton.setOnAction(event -> editCharNamesScreen.show(primaryStage));
+		root.getChildren().addAll(batchEditButton, editCharNamesButton);
 		Scene scene = new Scene(root, 1600, 900);
 		primaryStage.setTitle("Mario Party Text Editor");
 		primaryStage.setScene(scene);

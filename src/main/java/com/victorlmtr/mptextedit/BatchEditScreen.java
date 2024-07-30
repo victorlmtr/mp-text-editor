@@ -8,6 +8,7 @@ import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -42,8 +43,15 @@ public class BatchEditScreen {
             }
         });
 
+        // Set columns to expand properly
+        hexColumn.setMinWidth(100); // Minimum width for better appearance
+        dataColumn.setMinWidth(200); // Minimum width for better appearance
+
         tableView.getColumns().add(hexColumn);
         tableView.getColumns().add(dataColumn);
+
+        // Set the resize policy to expand columns
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         // Enable table editing
         tableView.setEditable(true);
@@ -52,11 +60,12 @@ public class BatchEditScreen {
         saveFileButton.setOnAction(event -> saveFile(stage));
 
         root.getChildren().addAll(loadFileButton, saveFileButton, tableView);
+        VBox.setVgrow(tableView, Priority.ALWAYS); // Allow table to grow vertically
+
         Scene scene = new Scene(root, 1600, 900);
         stage.setScene(scene);
         stage.show();
     }
-
 
     private void loadFile(Stage stage) {
         FileChooser fileChooser = new FileChooser();
@@ -147,7 +156,7 @@ public class BatchEditScreen {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("DAT Files", "*.dat"));
         File file = fileChooser.showSaveDialog(stage);
-        if (file!= null) {
+        if (file != null) {
             List<HexData> hexDataList = tableView.getItems();
             byte[] fileContent = new byte[0];
             try {
